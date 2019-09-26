@@ -1,9 +1,3 @@
-# Unwanted files
-target
-
-# Backup files
-.DS_Store
-thumbs.db
-*~
-*.rs.bk
-*.swp
+/.idea
+/target
+**/*.rs.bk
