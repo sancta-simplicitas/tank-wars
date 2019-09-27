@@ -27,6 +27,6 @@ class Wall(override val x: Int, override val y: Int) : Blockable, Sufferable, De
     override fun notifySuffer(attackable: Attackable): Array<View>? {
         blood -= attackable.attackPower      //砖墙掉血
         Composer.play("img/hit.wav")//砖墙喊疼
-        return arrayOf(Blast(x,y))
+        return arrayOf(Blast(x, y))
     }
 }

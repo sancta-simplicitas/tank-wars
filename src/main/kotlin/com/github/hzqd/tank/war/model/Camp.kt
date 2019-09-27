@@ -43,7 +43,7 @@ class Camp(override var x: Int, override var y: Int) : Blockable, Sufferable, De
         }
     }
 
-    override fun notifySuffer(attackable: Attackable): Array<View>? {
+    override fun notifySuffer(attackable: Attackable): Array<View>? = run {
         blood -= attackable.attackPower
         if (blood == 3 || blood == 6) {
             return arrayOf (
@@ -58,13 +58,13 @@ class Camp(override var x: Int, override var y: Int) : Blockable, Sufferable, De
                     Blast(x+Config.block/2,y+Config.block/2)
             )
         }
-        return null
+        null
     }
 
     override fun isDestroyed() = blood <= 0
 
-    override fun showDestroy(): Array<View>? {
-        return arrayOf(
+    override fun showDestroy(): Array<View>? = run {
+        arrayOf(
                 Blast(x-32,y-32),
                 Blast(x,y-32),
                 Blast(x+32,y-32),

@@ -12,7 +12,5 @@ class Grass(override val x: Int, override val y: Int) : View {
     override var width = Config.block
     override var height = Config.block
     //显示行为：
-    override fun draw() {
-        Painter.drawImage("img/grass.png", x, y)
-    }
+    override fun draw() = Painter.drawImage("img/grass.png", x, y)
 }

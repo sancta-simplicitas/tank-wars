@@ -16,6 +16,6 @@ class Steel(override val x: Int, override val y: Int) : Blockable, Sufferable {
     override var width = Config.block
     override var height = Config.block
     //显示行为：
-    override fun draw() { Painter.drawImage("img/steels.gif", x, y) }
-    override fun notifySuffer(attackable: Attackable): Array<View>? { return null }
+    override fun draw() = Painter.drawImage("img/steels.gif", x, y)
+    override fun notifySuffer(attackable: Attackable): Array<View>? = null
 }
