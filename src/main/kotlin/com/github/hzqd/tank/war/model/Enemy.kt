@@ -10,7 +10,7 @@ import org.itheima.kotlin.game.core.Painter
 import java.util.*
 
 /**敌方坦克*/
-class Enemy(x: Int, y: Int): Tank(),AutoMovable,AutoShotable {
+class Enemy(x: Int, y: Int): Tank(), AutoMovable, AutoShotable {
     override var x: Int = x
     override var y: Int = y
 
@@ -35,10 +35,6 @@ class Enemy(x: Int, y: Int): Tank(),AutoMovable,AutoShotable {
         }
         Painter.drawImage(imagePath, x, y)
     }
-
-//    override fun willCollision(block: Blockable): Direction? {
-//        return null
-//    }
 
     override fun notifyCollision(direction: Direction?, block: Blockable?) {
         badDirection = direction

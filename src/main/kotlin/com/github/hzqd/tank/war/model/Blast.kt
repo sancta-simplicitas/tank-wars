@@ -20,7 +20,5 @@ class Blast(override val x: Int, override val y: Int) : Destroyable {
         index++
     }
 
-    override fun isDestroyed(): Boolean {
-        return index >= imagePaths.size
-    }
+    override fun isDestroyed() = index >= imagePaths.size
 }

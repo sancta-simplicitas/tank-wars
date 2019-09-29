@@ -61,9 +61,9 @@ class Bullet(override val owner: View, override val currentDirection: Direction,
         return false
     }
 
-    override fun isCollision(sufferable: Sufferable): Boolean { return checkCollision(sufferable) }
+    override fun isCollision(sufferable: Sufferable): Boolean = checkCollision(sufferable)
 
     override fun notifyAttack(sufferable: Sufferable) { isDestroyed = true }
 
-    override fun notifySuffer(attackable: Attackable): Array<View>? { return arrayOf(Blast(x,y)) }
+    override fun notifySuffer(attackable: Attackable): Array<View>? = arrayOf(Blast(x,y))
 }

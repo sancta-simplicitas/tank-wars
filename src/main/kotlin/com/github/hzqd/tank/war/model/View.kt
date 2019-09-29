@@ -13,9 +13,9 @@ interface View {
     fun draw()
 
     //碰撞检测：
-    fun checkCollision(x1: Int, x2: Int, y1: Int, y2: Int, w1: Int, w2: Int, h1: Int, h2: Int): Boolean {
+    fun checkCollision(x1: Int, x2: Int, y1: Int, y2: Int, w1: Int, w2: Int, h1: Int, h2: Int) = run {
         //两个物体的x,y,w,h的比较
-        return when {
+        when {
             y2 + h2 <= y1 -> false    //阻挡物在运动物的上方时，不碰撞
             y1 + h1 <= y2 -> false    //阻挡物在运动物的下方时，不碰撞
             x2 + w2 <= x1 -> false    //阻挡物在运动物的左方时，不碰撞
