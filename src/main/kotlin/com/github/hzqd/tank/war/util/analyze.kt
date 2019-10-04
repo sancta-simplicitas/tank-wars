@@ -6,46 +6,52 @@ import com.github.hzqd.tank.war.model.Bullet
 import com.github.hzqd.tank.war.model.Tank
 
 fun checkDirect(ins: Tank) {
-    when (ins.currentDirection) {
-        Direction.UP -> ins.y -= ins.speed
-        Direction.DOWN -> ins.y += ins.speed
-        Direction.LEFT -> ins.x -= ins.speed
-        Direction.RIGHT -> ins.x += ins.speed
+    with(ins) {
+        when (currentDirection) {
+            Direction.UP   -> y -= speed
+            Direction.DOWN -> y += speed
+            Direction.LEFT -> x -= speed
+            Direction.RIGHT-> x += speed
+        }
+        //越界判断：
+        with(Config) {
+            if (x < 0) x = 0
+            if (x > gameWidth - width) x = gameWidth - width
+            if (y < 0) y = 0
+            if (y > gameHeight - height) y = gameHeight - height
+        }
     }
-    //越界判断：
-    if (ins.x < 0) ins.x = 0
-    if (ins.x > Config.gameWidth - ins.width) ins.x = Config.gameWidth - ins.width
-    if (ins.y < 0) ins.y = 0
-    if (ins.y > Config.gameHeight - ins.height) ins.y = Config.gameHeight - ins.height
 }
 
 fun calcBullet(ins: Tank) = run {
-    Bullet(ins, ins.currentDirection) { bulletWidth, bulletHeight ->
-        val tankX = ins.x
-        val tankY = ins.y
-        val tankWidth = ins.width
-        val tankHeight = ins.height
-        //计算子弹真实的坐标：
-        var bulletX = 0
-        var bulletY = 0
-        when (ins.currentDirection) {
-            Direction.UP -> {
-                bulletX = tankX + (tankWidth - bulletWidth) / 2
-                bulletY = tankY - bulletHeight / 2
+    with(ins) {
+        Bullet(this, currentDirection) { bulletWidth, bulletHeight ->
+            val tankX = x
+            val tankY = y
+            val tankWidth = width
+            val tankHeight = height
+            //计算子弹真实的坐标：
+            var bulletX = 0
+            var bulletY = 0
+            when (currentDirection) {
+                Direction.UP -> {
+                    bulletX = tankX + (tankWidth - bulletWidth) / 2
+                    bulletY = tankY - bulletHeight / 2
+                }
+                Direction.DOWN -> {
+                    bulletX = tankX + (tankWidth - bulletWidth) / 2
+                    bulletY = tankY + tankHeight - bulletHeight / 2
+                }
+                Direction.LEFT -> {
+                    bulletX = tankX - bulletWidth / 2
+                    bulletY = tankY + (tankHeight - bulletHeight) / 2
+                }
+                Direction.RIGHT -> {
+                    bulletX = tankX + tankWidth - bulletWidth / 2
+                    bulletY = tankY + (tankHeight - bulletHeight) / 2
+                }
             }
-            Direction.DOWN -> {
-                bulletX = tankX + (tankWidth - bulletWidth) / 2
-                bulletY = tankY + tankHeight - bulletHeight / 2
-            }
-            Direction.LEFT -> {
-                bulletX = tankX - bulletWidth / 2
-                bulletY = tankY + (tankHeight - bulletHeight) / 2
-            }
-            Direction.RIGHT -> {
-                bulletX = tankX + tankWidth - bulletWidth / 2
-                bulletY = tankY + (tankHeight - bulletHeight) / 2
-            }
+            Pair(bulletX, bulletY)
         }
-        Pair(bulletX, bulletY)
     }
 }
