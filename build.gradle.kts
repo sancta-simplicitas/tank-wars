@@ -1,27 +1,52 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "1.3.11"
+    java
+    kotlin("jvm") version "1.3.60"
     application
+    id("org.openjfx.javafxplugin") version "0.0.8"
+    id("org.beryx.jlink") version "2.12.0"
 }
+
+group = "com.github.hzqd"
+version = "0.1"
+
 application {
     mainClassName = "com.github.hzqd.tank.war.AppKt"
 }
-dependencies {
-    compile(kotlin("stdlib-jdk8"))
-    compile("org.openjfx","javafx-controls","11",classifier = "linux")
-    compile("com.github.shaunxiao:kotlinGameEngine:v0.0.4")
-    compile("de.dynamicfiles.projects.gradle.plugins","javafx-gradle-plugin","8.8.2")
-}
+
 repositories {
     mavenCentral()
-    maven { setUrl("https://jitpack.io") }
+    maven("https://jitpack.io")
 }
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+
+javafx {
+    version = "13.0.1"
+    modules = mutableListOf("javafx.controls")
 }
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+
+jlink {
+    launcher {
+        name = "hellofx"
+    }
+}
+
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+    implementation("junit", "junit", "4.12")
+    implementation("org.openjfx", "javafx-base", "13.0.1")
+    implementation("org.openjfx", "javafx-graphics", "13.0.1")
+    implementation("org.openjfx", "javafx-controls", "13.0.1")
+    implementation("org.openjfx", "javafx-media", "13.0.1")
+    implementation("com.github.shaunxiao:kotlinGameEngine:v0.0.4")
+}
+
+configure<JavaPluginConvention> {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
+tasks {
+    compileKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
 }

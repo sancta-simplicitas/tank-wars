@@ -64,10 +64,7 @@ class GameWindow : Window("坦克大战 v0.1", "img/logo.jpg", Config.gameWidth,
                 KeyCode.S -> tank.move(Direction.DOWN)
                 KeyCode.A -> tank.move(Direction.LEFT)
                 KeyCode.D -> tank.move(Direction.RIGHT)
-                KeyCode.ENTER -> {
-                    val bullet = tank.shot()
-                    views.add(bullet)
-                }
+                KeyCode.ENTER -> views.add(tank.shot())
             }
     }
 
@@ -110,7 +107,6 @@ class GameWindow : Window("坦克大战 v0.1", "img/logo.jpg", Config.gameWidth,
         /**检测攻击体与受攻体是否碰撞：*/
         //过滤有攻击和受攻能力的物体 且 攻击方的目标不能是自己：
         views.filterIsInstance<Attackable>().forEach { attack ->
-            attack
             views.filter { (it is Sufferable) and (attack.owner != it) and (attack != it) }.forEach sufferTag@{ suffer ->
                 suffer as Sufferable
                 //判断是否发生碰撞：
