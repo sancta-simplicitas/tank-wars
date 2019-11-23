@@ -57,9 +57,7 @@ abstract class Window(
         }
         scene0.onKeyReleased = EventHandler { event ->
             keyRecorder.remove(event.code)
-            if (currentKey == event.code) {
-                currentKey = null
-            }
+            if (currentKey == event.code) currentKey = null
         }
         //初始化回调
         onCreate()

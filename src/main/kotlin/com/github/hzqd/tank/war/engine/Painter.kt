@@ -11,13 +11,13 @@ object Painter {
     /**
      * 获取图片大小
      */
-    fun size(imagePath: String): Array<Int> {
+    fun size(imagePath: String) = run {
         imageCache[imagePath]?.run {
             arrayOf(width.toInt(), height.toInt())
         }
         Image(imagePath).run {
             imageCache[imagePath] = this
-            return arrayOf(width.toInt(), height.toInt())
+            arrayOf(width.toInt(), height.toInt())
         }
     }
 

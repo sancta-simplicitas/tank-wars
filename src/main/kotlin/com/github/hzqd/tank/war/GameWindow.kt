@@ -46,94 +46,84 @@ class GameWindow : Window("坦克大战 v0.1", "img/logo.jpg", Config.gameWidth,
         }
         //添加我方坦克：
         tank = MyTank()
-        views.add(tank)
-        //添加大本营：
-        views.add(Camp(Config.gameWidth / 2 - Config.block, Config.gameHeight - 90))
+        with(views) {
+            add(tank)
+            add(Camp(Config.gameWidth / 2 - Config.block, Config.gameHeight - 90))
+        }
     }
 
-    override fun onDisplay() {
-        //绘制地图中的元素：
-        views.forEach { it.draw() }
-    }
+    override fun onDisplay() = run { views.forEach { it.draw() } }  // 绘制地图中的元素
 
     override fun onKeyPressed(event: KeyEvent) {
-        if (!gameOver)
-        //用户操作时：
-            when (event.code) {
-                KeyCode.W -> tank.move(Direction.UP)
-                KeyCode.S -> tank.move(Direction.DOWN)
-                KeyCode.A -> tank.move(Direction.LEFT)
-                KeyCode.D -> tank.move(Direction.RIGHT)
-                KeyCode.ENTER -> views.add(tank.shot())
-            }
+        if (!gameOver) when (event.code) {
+            KeyCode.W -> tank.move(Direction.UP)
+            KeyCode.S -> tank.move(Direction.DOWN)
+            KeyCode.A -> tank.move(Direction.LEFT)
+            KeyCode.D -> tank.move(Direction.RIGHT)
+            KeyCode.ENTER -> views.add(tank.shot())
+        }
     }
 
     override fun onRefresh() {
-        /**自动销毁：*/  //forEach中判断是否自动销毁：
-        views.filterIsInstance<Destroyable>().forEach {
-            if (it.isDestroyed()) {
-                views.remove(it)
-                if (it is Enemy) enemyTotalSize--
-                val destroy = it.showDestroy()
-                destroy?.let { views.addAll(destroy) }
-            }
-        }
-        if (gameOver) return
-        /**业务逻辑：
-         ***判断运动体和阻塞体是否发生碰撞：
-        (1)找到运动的物体：
-        (2)找到阻塞的物体：
-        (3)遍历集合 -> 是否发生碰撞：
-         */
-        views.filterIsInstance<Movable>().forEach { move ->
-            //move和block是否碰撞：
-            var badDirection: Direction? = null
-            var badBlock: Blockable? = null
-            views.filter { (it is Blockable) and (move != it) }.forEach blockTag@{ block ->
-                block as Blockable
-                val direction = move.willCollision(block)   //获得碰撞的方向
-                //发现碰撞，跳出当前循环：
-                direction?.let {
-                    badDirection = direction
-                    badBlock = block
-                    return@blockTag
+        with(views) {
+            /**自动销毁：*/  //forEach中判断是否自动销毁：
+            filterIsInstance<Destroyable>().forEach {
+                if (it.isDestroyed()) {
+                    remove(it)
+                    if (it is Enemy) enemyTotalSize--
+                    it.showDestroy()?.run { addAll(this) }
                 }
             }
-            //找到和move碰撞的block与碰撞的方向 ; 通知可移动的物体，会在哪个方向碰撞。
-            move.notifyCollision(badDirection, badBlock)
-        }
-        /**自动移动：*/
-        views.filterIsInstance<AutoMovable>().forEach { it.autoMove() }
-        /**检测攻击体与受攻体是否碰撞：*/
-        //过滤有攻击和受攻能力的物体 且 攻击方的目标不能是自己：
-        views.filterIsInstance<Attackable>().forEach { attack ->
-            views.filter { (it is Sufferable) and (attack.owner != it) and (attack != it) }.forEach sufferTag@{ suffer ->
-                suffer as Sufferable
-                //判断是否发生碰撞：
-                if (attack.isCollision(suffer)) {
-                    //产生碰撞，找到碰撞者；通知攻击者和被攻击者，产生碰撞：
-                    attack.notifyAttack(suffer)
-                    val sufferView = suffer.notifySuffer(attack)
-                    sufferView?.let { views.addAll(sufferView) }    //显示受攻效果
-                    return@sufferTag
+            if (gameOver) return
+            /**业务逻辑：
+             ***判断运动体和阻塞体是否发生碰撞：
+            (1)找到运动的物体：
+            (2)找到阻塞的物体：
+            (3)遍历集合 -> 是否发生碰撞：
+             */
+            filterIsInstance<Movable>().forEach { move ->
+                //move和block是否碰撞：
+                var badDirection: Direction? = null
+                var badBlock: Blockable? = null
+                filter { (it is Blockable) and (move != it) }.forEach blockTag@{ block ->
+                    block as Blockable
+                    move.willCollision(block)?.let {    // 获得碰撞的方向；发现碰撞，跳出当前循环
+                        badDirection = it
+                        badBlock = block
+                        return@blockTag
+                    }
+                }
+                //找到和move碰撞的block与碰撞的方向 ; 通知可移动的物体，会在哪个方向碰撞。
+                move.notifyCollision(badDirection, badBlock)
+            }
+            /**自动移动：*/
+            filterIsInstance<AutoMovable>().forEach { it.autoMove() }
+            /**检测攻击体与受攻体是否碰撞：*/
+            //过滤有攻击和受攻能力的物体 且 攻击方的目标不能是自己：
+            filterIsInstance<Attackable>().forEach { attack ->
+                filter { (it is Sufferable) and (attack.owner != it) and (attack != it) }.forEach sufferTag@{ suffer ->
+                    suffer as Sufferable
+                    //判断是否发生碰撞：
+                    if (attack.isCollision(suffer)) {
+                        //产生碰撞，找到碰撞者；通知攻击者和被攻击者，产生碰撞：
+                        attack.notifyAttack(suffer)
+                        suffer.notifySuffer(attack)?.let { addAll(it) }    //显示受攻效果
+                        return@sufferTag
+                    }
                 }
             }
-        }
-        /**检测自动射击*/
-        views.filterIsInstance<AutoShotable>().forEach {
-            val shot = it.autoShot()
-            shot?.let { views.add(shot) }
-        }
-        /**检测游戏结束*/
-        if (views.none { it is Camp } or (enemyTotalSize <= 0)) {
-            gameOver = true
-        }
-        /**检测敌方出生*/
-        if ((enemyTotalSize > 5) and (views.filterIsInstance<Enemy>().size < enemyActiveSize)) {
-            val index = bornIndex % enemyBornLocation.size
-            val pair = enemyBornLocation[index]
-            views.add(Enemy(pair.first, pair.second))
-            bornIndex++
+            /**检测自动射击*/
+            filterIsInstance<AutoShotable>().forEach { it.autoShot()?.run { add(this) } }
+            /**检测游戏结束*/
+            if (none { it is Camp } or (enemyTotalSize <= 0)) gameOver = true
+            /**检测敌方出生*/
+            if ((enemyTotalSize > 5) and (filterIsInstance<Enemy>().size < enemyActiveSize)) {
+                val index = bornIndex % enemyBornLocation.size
+                enemyBornLocation[index].run {
+                    add(Enemy(first, second))
+                }
+                bornIndex++
+            }
         }
     }
 }
