@@ -36,7 +36,6 @@ dependencies {
     implementation("org.openjfx", "javafx-graphics", "13.0.1")
     implementation("org.openjfx", "javafx-controls", "13.0.1")
     implementation("org.openjfx", "javafx-media", "13.0.1")
-    implementation("com.github.shaunxiao:kotlinGameEngine:v0.0.4")
 }
 
 configure<JavaPluginConvention> {

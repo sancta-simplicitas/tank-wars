@@ -1,7 +1,7 @@
 package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config
-import org.itheima.kotlin.game.core.Painter
+import com.github.hzqd.tank.war.engine.Painter
 
 /**草坪*/
 class Grass(override val x: Int, override val y: Int) : View {

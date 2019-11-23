@@ -2,11 +2,11 @@ package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config
 import com.github.hzqd.tank.war.business.*
+import com.github.hzqd.tank.war.engine.Composer
+import com.github.hzqd.tank.war.engine.Painter
 import com.github.hzqd.tank.war.enums.Direction
 import com.github.hzqd.tank.war.util.calcBullet
 import com.github.hzqd.tank.war.util.checkDirect
-import org.itheima.kotlin.game.core.Composer
-import org.itheima.kotlin.game.core.Painter
 import java.util.*
 
 /**敌方坦克*/

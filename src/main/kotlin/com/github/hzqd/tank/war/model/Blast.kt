@@ -2,7 +2,7 @@ package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config
 import com.github.hzqd.tank.war.business.Destroyable
-import org.itheima.kotlin.game.core.Painter
+import com.github.hzqd.tank.war.engine.Painter
 
 /**爆炸物*/
 class Blast(override val x: Int, override val y: Int) : Destroyable {

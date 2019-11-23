@@ -4,7 +4,7 @@ import com.github.hzqd.tank.war.Config
 import com.github.hzqd.tank.war.business.Attackable
 import com.github.hzqd.tank.war.business.Blockable
 import com.github.hzqd.tank.war.business.Sufferable
-import org.itheima.kotlin.game.core.Painter
+import com.github.hzqd.tank.war.engine.Painter
 
 /**铁墙*/
 class Steel(override val x: Int, override val y: Int) : Blockable, Sufferable {

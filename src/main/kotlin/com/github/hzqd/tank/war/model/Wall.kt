@@ -5,8 +5,8 @@ import com.github.hzqd.tank.war.business.Attackable
 import com.github.hzqd.tank.war.business.Blockable
 import com.github.hzqd.tank.war.business.Destroyable
 import com.github.hzqd.tank.war.business.Sufferable
-import org.itheima.kotlin.game.core.Composer
-import org.itheima.kotlin.game.core.Painter
+import com.github.hzqd.tank.war.engine.Composer
+import com.github.hzqd.tank.war.engine.Painter
 
 /**砖墙*/
 class Wall(override val x: Int, override val y: Int) : Blockable, Sufferable, Destroyable {

@@ -2,7 +2,7 @@ package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config
 import com.github.hzqd.tank.war.business.Blockable
-import org.itheima.kotlin.game.core.Painter
+import com.github.hzqd.tank.war.engine.Painter
 
 /**水墙*/
 class Water(override val x: Int, override val y: Int) : Blockable {

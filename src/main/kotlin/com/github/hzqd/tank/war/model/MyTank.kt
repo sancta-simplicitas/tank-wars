@@ -2,10 +2,10 @@ package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config
 import com.github.hzqd.tank.war.business.*
+import com.github.hzqd.tank.war.engine.Painter
 import com.github.hzqd.tank.war.enums.Direction
 import com.github.hzqd.tank.war.util.calcBullet
 import com.github.hzqd.tank.war.util.checkDirect
-import org.itheima.kotlin.game.core.Painter
 
 /**我方坦克*/
 class MyTank : Tank() {

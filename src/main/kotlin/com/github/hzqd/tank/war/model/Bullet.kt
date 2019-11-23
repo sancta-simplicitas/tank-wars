@@ -5,9 +5,9 @@ import com.github.hzqd.tank.war.business.Attackable
 import com.github.hzqd.tank.war.business.AutoMovable
 import com.github.hzqd.tank.war.business.Destroyable
 import com.github.hzqd.tank.war.business.Sufferable
+import com.github.hzqd.tank.war.engine.Painter
 import com.github.hzqd.tank.war.enums.Direction
 import com.github.hzqd.tank.war.ext.checkCollision
-import org.itheima.kotlin.game.core.Painter
 
 /**子弹*/
 class Bullet(override val owner: View, override val currentDirection: Direction, create: (width: Int, height: Int) -> Pair<Int, Int>) : AutoMovable, Destroyable, Attackable, Sufferable {
