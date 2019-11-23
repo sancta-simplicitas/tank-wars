@@ -14,31 +14,32 @@ class GameWindow : Window("坦克大战 v0.1", "img/logo.jpg", Config.gameWidth,
     //管理元素的集合：
     //private val views = arrayListOf<View>()
     private val views = CopyOnWriteArrayList<View>()
-    private lateinit var tank: MyTank //晚点创建
-    private var gameOver = false    //游戏结束，默认不结束
-    private var enemyTotalSize = 20 //敌人总数
-    private var enemyActiveSize = 6  //敌人最多显示数量
+    private lateinit var tank: MyTank // 晚点创建
+    private var gameOver = false      // 游戏结束，默认不结束
+    private var enemyTotalSize = 20   // 敌人总数
+    private var enemyActiveSize = 6   // 敌人最多显示数量
     private var enemyBornLocation = arrayListOf<Pair<Int, Int>>()    //敌方的出生点
     private var bornIndex = 0
     override fun onCreate() {
-        //地图：
-        //读文件创建地图：
-        //val reader = File(javaClass.getResource("/map/1.map").path)
-        val resourceAsStream = javaClass.getResourceAsStream("/map/1.map")
-        val reader = BufferedReader(InputStreamReader(resourceAsStream, "utf-8"))
-        //读取行：
-        val lines = reader.readLines()
-        //循环遍历：
+        //读文件创建地图，读取行，循环遍历：
         var lineNum = 0
-        lines.forEach { line ->
+        javaClass.getResourceAsStream("/map/1.map").run {
+            BufferedReader(InputStreamReader(this, "utf-8"))
+        }.readLines().forEach { line ->
             var columnNum = 0
             line.toCharArray().forEach { column ->
-                when (column) {
-                    '砖' -> views.add(Wall(columnNum * Config.block, lineNum * Config.block))
-                    '铁' -> views.add(Steel(columnNum * Config.block, lineNum * Config.block))
-                    '草' -> views.add(Grass(columnNum * Config.block, lineNum * Config.block))
-                    '水' -> views.add(Water(columnNum * Config.block, lineNum * Config.block))
-                    '敌' -> enemyBornLocation.add(Pair(columnNum * Config.block, lineNum * Config.block))
+                with(views) {
+                    with(enemyBornLocation) {
+                        Config.apply {
+                            when (column) {
+                                '砖' -> add(Wall(columnNum * block, lineNum * block))
+                                '铁' -> add(Steel(columnNum * block, lineNum * block))
+                                '草' -> add(Grass(columnNum * block, lineNum * block))
+                                '水' -> add(Water(columnNum * block, lineNum * block))
+                                '敌' -> add(Pair(columnNum * block, lineNum * block))
+                            }
+                        }
+                    }
                 }
                 columnNum++
             }
@@ -87,7 +88,8 @@ class GameWindow : Window("坦克大战 v0.1", "img/logo.jpg", Config.gameWidth,
                 var badBlock: Blockable? = null
                 filter { (it is Blockable) and (move != it) }.forEach blockTag@{ block ->
                     block as Blockable
-                    move.willCollision(block)?.let {    // 获得碰撞的方向；发现碰撞，跳出当前循环
+                    move.willCollision(block)?.let {
+                        // 获得碰撞的方向；发现碰撞，跳出当前循环
                         badDirection = it
                         badBlock = block
                         return@blockTag
