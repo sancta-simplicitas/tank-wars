@@ -6,6 +6,7 @@ import com.github.hzqd.tank.war.business.Blockable
 import com.github.hzqd.tank.war.business.Destroyable
 import com.github.hzqd.tank.war.business.Sufferable
 import com.github.hzqd.tank.war.engine.Composer
+import com.github.hzqd.tank.war.engine.HIT
 import com.github.hzqd.tank.war.engine.Painter
 
 /**砖墙*/
@@ -26,7 +27,7 @@ class Wall(override val x: Int, override val y: Int) : Blockable, Sufferable, De
 
     override fun notifySuffer(attackable: Attackable): Array<View>? {
         blood -= attackable.attackPower      //砖墙掉血
-        Composer.play("img/hit.wav")//砖墙喊疼
+        Composer.play(HIT)                   //砖墙喊疼
         return arrayOf(Blast(x, y))
     }
 }

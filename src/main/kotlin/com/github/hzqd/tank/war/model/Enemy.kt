@@ -3,6 +3,7 @@ package com.github.hzqd.tank.war.model
 import com.github.hzqd.tank.war.Config
 import com.github.hzqd.tank.war.business.*
 import com.github.hzqd.tank.war.engine.Composer
+import com.github.hzqd.tank.war.engine.HIT
 import com.github.hzqd.tank.war.engine.Painter
 import com.github.hzqd.tank.war.enums.Direction
 import com.github.hzqd.tank.war.util.calcBullet
@@ -81,7 +82,7 @@ class Enemy(x: Int, y: Int): Tank(), AutoMovable, AutoShotable {
             return null
         }
         blood -= attackable.attackPower
-        Composer.play("img/hit.wav")
+        Composer.play(HIT)
         arrayOf(Blast(x, y))
     }
 
