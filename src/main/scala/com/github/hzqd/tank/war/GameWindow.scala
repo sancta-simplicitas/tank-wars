@@ -12,6 +12,7 @@ import com.github.hzqd.tank.war.model._
 import javafx.scene.input.KeyCode._
 import javafx.scene.input.KeyEvent
 import scala.collection.mutable.ArrayBuffer
+import scala.jdk.CollectionConverters._
 
 class GameWindow extends Window("坦克大战 v0.1", "img/logo.jpg", Config.gameWidth, Config.gameHeight) {
     //管理元素的集合：
@@ -20,7 +21,7 @@ class GameWindow extends Window("坦克大战 v0.1", "img/logo.jpg", Config.game
     private val tank = MyTank()       // 晚点创建 /Scala先赋值为null => 直接创建，没必要先为null
     private var gameOver = false      // 游戏结束，默认不结束
     private var enemyTotalSize = 20   // 敌人总数
-    private var enemyActiveSize = 6   // 敌人最多显示数量
+    private val enemyActiveSize = 6   // 敌人最多显示数量
     private val enemyBornLocation = ArrayBuffer[(Int, Int)]() // 敌方出生点
     private var bornIndex = 0
     import views._
@@ -69,7 +70,7 @@ class GameWindow extends Window("坦克大战 v0.1", "img/logo.jpg", Config.game
             case d: Destroyable => if (d.isDestroyed) {
                 remove(d)
                 d match { case _: Enemy => enemyTotalSize -= 1 }
-                d.showDestroy().let(addAll())
+                d.showDestroy().let(i => views.asScala.addAll(i))
             }
         }
         if (gameOver) return
@@ -100,7 +101,7 @@ class GameWindow extends Window("坦克大战 v0.1", "img/logo.jpg", Config.game
                 case s: Sufferable => if ((a.owner != s) && (a != s) && a.isCollision(s)) {
                     //产生碰撞，找到碰撞者；通知攻击者和被攻击者，产生碰撞：
                     a notifyAttack s
-                    s.notifySuffer(a).let(addAll())    //显示受攻效果
+                    s.notifySuffer(a).let(i => views.asScala.addAll(i)) //显示受攻效果
                     return
                 }
             }
