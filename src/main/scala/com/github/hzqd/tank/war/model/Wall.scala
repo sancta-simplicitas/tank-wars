@@ -9,14 +9,14 @@ import com.github.hzqd.tank.war.engine.Composer
 import com.github.hzqd.tank.war.engine.Painter
 
 /**砖墙*/
-case class Wall(override val x: Int, override val y: Int) extends Blockable with Sufferable with Destroyable {
+case class Wall(override var x: Int, override var y: Int) extends Blockable with Sufferable with Destroyable {
     override var blood: Int = 3
     //位置：
 //    override val x = 100
 //    override val y = 100
     //宽高：
-    override val width = block
-    override val height = block
+    override var width = block
+    override var height = block
     //显示行为：
     override def draw() {
         Painter.drawImage("img/walls.gif", x, y)

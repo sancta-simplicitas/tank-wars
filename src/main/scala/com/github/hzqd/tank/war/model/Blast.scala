@@ -7,10 +7,10 @@ import scala.collection.mutable.ArrayBuffer
 import com.github.hzqd.tank.war.ext.Fn.KtStd
 
 /**爆炸物*/
-case class Blast(override val x: Int, override val y: Int) extends Destroyable {
+case class Blast(override var x: Int, override var y: Int) extends Destroyable {
 
-    override val width: Int = Config.block
-    override val height: Int = Config.block
+    override var width: Int = Config.block
+    override var height: Int = Config.block
     private val imagePaths = ArrayBuffer[String]()
     private var index = 0
 

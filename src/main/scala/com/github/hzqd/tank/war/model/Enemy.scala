@@ -14,14 +14,14 @@ case class Enemy(a: Int, b: Int) extends Tank with AutoMovable with AutoShotable
     override var y: Int = b
     override var currentDirection: Direction = Direction.DOWN
     override val speed: Int = 8
-    override val width: Int = block
-    override val height: Int = block
+    override var width: Int = block
+    override var height: Int = block
     //坦克不能走的方向：
     private var badDirection: Direction = _
     private var lastShotTime = 0L
-    private var shotFrequency= 800
+    private val shotFrequency = 800
     private var lastMoveTime = 0L
-    private var moveFrequency= 50
+    private val moveFrequency = 50
     override var blood = 2
 
     override def draw() {

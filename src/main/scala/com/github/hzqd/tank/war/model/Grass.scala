@@ -4,7 +4,7 @@ import com.github.hzqd.tank.war.Config
 import com.github.hzqd.tank.war.engine.Painter
 
 /**草坪*/
-case class Grass(override val x: Int, override val y: Int) extends View {
+case class Grass(override var x: Int, override var y: Int) extends View {
     //位置：
 //    override var x = 200
 //    override var y = 200

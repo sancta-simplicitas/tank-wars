@@ -40,6 +40,7 @@ class GameWindow extends Window("坦克大战 v0.1", "img/logo.jpg", Config.game
                     case '草' => add(Grass(columnNum * block, lineNum * block))
                     case '水' => add(Water(columnNum * block, lineNum * block))
                     case '敌' => addOne((columnNum * block, lineNum * block))
+                    case '空' => ()
                 }
                 columnNum += 1
             }

@@ -8,9 +8,9 @@ import Direction._
 import com.github.hzqd.tank.war.ext.Fn.KtStd
 
 /**子弹*/
-case class Bullet(override val owner: View, override val currentDirection: Direction, create: (Int, Int) => (Int, Int))
+case class Bullet(override val owner: View, override var currentDirection: Direction, create: (Int, Int) => (Int, Int))
         extends AutoMovable with Destroyable with Attackable with Sufferable {
-    override val blood = 0
+    override var blood = 0
     //给子弹一个方向，方向由坦克来决定：
     override var width = block
     override var height = block

@@ -5,7 +5,7 @@ import com.github.hzqd.tank.war.business.Blockable
 import com.github.hzqd.tank.war.engine.Painter
 
 /**水墙*/
-case class Water(override val x: Int, override val y: Int) extends Blockable {
+case class Water(override var x: Int, override var y: Int) extends Blockable {
     //位置：
 //    override var x = 200
 //    override var y = 200

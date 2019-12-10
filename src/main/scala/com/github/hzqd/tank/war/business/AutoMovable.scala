@@ -6,7 +6,7 @@ import com.github.hzqd.tank.war.model.View
 /**自动移动的能力：*/
 trait AutoMovable extends View {
     //方向和速度：
-    val currentDirection: Direction
+    var currentDirection: Direction
     val speed: Int
     def autoMove()
 }

@@ -12,8 +12,8 @@ case class MyTank() extends Tank() {
     override var x: Int = Config.block * 10
     override var y: Int = Config.block * 10
     override def isDestroyed() = blood <= -10
-    override val width: Int = Config.block
-    override val height: Int = Config.block
+    override var width: Int = Config.block
+    override var height: Int = Config.block
     //方向：
     override var currentDirection: Direction = Direction.UP
     //速度：

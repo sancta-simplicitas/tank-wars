@@ -7,8 +7,8 @@ import com.github.hzqd.tank.war.business.Sufferable
 import com.github.hzqd.tank.war.engine.Painter
 
 /**铁墙*/
-case class Steel(override val x: Int, override val y: Int) extends Blockable with Sufferable {
-    override val blood = 0
+case class Steel(override var x: Int, override var y: Int) extends Blockable with Sufferable {
+    override var blood = 0
     //位置：
 //    override var x = 200
 //    override var y = 200
