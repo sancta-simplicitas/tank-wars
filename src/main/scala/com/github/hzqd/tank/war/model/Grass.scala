@@ -1,7 +1,7 @@
 package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config
-import com.github.hzqd.tank.war.engine.Painter
+import org.itheima.kotlin.game.core.Painter.INSTANCE.drawImage
 
 /**草坪*/
 case class Grass(override var x: Int, override var y: Int) extends View {
@@ -12,5 +12,5 @@ case class Grass(override var x: Int, override var y: Int) extends View {
     override var width = Config.block
     override var height = Config.block
     //显示行为：
-    override def draw() = Painter.drawImage("img/grass.png", x, y)
+    override def draw() = drawImage("img/grass.png", x, y)
 }

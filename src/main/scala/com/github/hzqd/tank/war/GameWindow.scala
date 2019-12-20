@@ -4,13 +4,13 @@ import java.io.{BufferedReader, InputStreamReader}
 import java.util.concurrent.CopyOnWriteArrayList
 import com.github.hzqd.tank.war.Config._
 import com.github.hzqd.tank.war.business._
-import com.github.hzqd.tank.war.engine.Window
 import com.github.hzqd.tank.war.enums.Direction
 import com.github.hzqd.tank.war.enums.Direction.Direction
 import com.github.hzqd.tank.war.ext.Fn.KtStd
 import com.github.hzqd.tank.war.model._
 import javafx.scene.input.KeyCode._
 import javafx.scene.input.KeyEvent
+import org.itheima.kotlin.game.core.Window
 import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters._
 

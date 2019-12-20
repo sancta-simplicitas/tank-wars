@@ -2,7 +2,7 @@ package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config
 import com.github.hzqd.tank.war.business.Blockable
-import com.github.hzqd.tank.war.engine.Painter
+import org.itheima.kotlin.game.core.Painter.INSTANCE.drawImage
 
 /**水墙*/
 case class Water(override var x: Int, override var y: Int) extends Blockable {
@@ -14,6 +14,6 @@ case class Water(override var x: Int, override var y: Int) extends Blockable {
     override var height = Config.block
     //显示行为：
     override def draw() {
-        Painter.drawImage("img/water.gif", x, y)
+        drawImage("img/water.gif", x, y)
     }
 }

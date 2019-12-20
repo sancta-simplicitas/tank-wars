@@ -2,7 +2,7 @@ package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config._
 import com.github.hzqd.tank.war.business.{Attackable, AutoMovable, Destroyable, Sufferable}
-import com.github.hzqd.tank.war.engine.Painter.{size, drawImage}
+import org.itheima.kotlin.game.core.Painter.INSTANCE.{size, drawImage}
 import com.github.hzqd.tank.war.enums.Direction
 import Direction._
 import com.github.hzqd.tank.war.ext.Fn.KtStd

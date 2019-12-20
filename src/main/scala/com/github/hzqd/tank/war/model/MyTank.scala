@@ -2,7 +2,7 @@ package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config
 import com.github.hzqd.tank.war.business._
-import com.github.hzqd.tank.war.engine.Painter
+import org.itheima.kotlin.game.core.Painter.INSTANCE.drawImage
 import com.github.hzqd.tank.war.enums.Direction
 import com.github.hzqd.tank.war.enums.Direction.Direction
 import com.github.hzqd.tank.war.util.Analyze.{calcBullet, checkDirect}
@@ -33,7 +33,7 @@ case class MyTank() extends Tank() {
             case LEFT => "img/p1tankL.gif"
             case RIGHT=> "img/p1tankR.gif"
         }
-        Painter.drawImage(imagePath, x, y)
+        drawImage(imagePath, x, y)
     }
 
     //坦克移动：

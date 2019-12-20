@@ -2,7 +2,7 @@ package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config._
 import com.github.hzqd.tank.war.business.{Attackable, Blockable, Destroyable, Sufferable}
-import com.github.hzqd.tank.war.engine.Painter.drawImage
+import org.itheima.kotlin.game.core.Painter.INSTANCE.drawImage
 import com.github.hzqd.tank.war.ext.Fn.KtStd
 
 /** 大本营 */

@@ -2,7 +2,7 @@ package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config
 import com.github.hzqd.tank.war.business.Destroyable
-import com.github.hzqd.tank.war.engine.Painter.drawImage
+import org.itheima.kotlin.game.core.Painter.INSTANCE.drawImage
 import scala.collection.mutable.ArrayBuffer
 import com.github.hzqd.tank.war.ext.Fn.KtStd
 

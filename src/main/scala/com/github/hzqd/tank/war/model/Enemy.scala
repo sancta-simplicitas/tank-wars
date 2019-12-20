@@ -2,7 +2,8 @@ package com.github.hzqd.tank.war.model
 
 import com.github.hzqd.tank.war.Config._
 import com.github.hzqd.tank.war.business._
-import com.github.hzqd.tank.war.engine.{Composer, Painter}
+import org.itheima.kotlin.game.core.Composer.INSTANCE.play
+import org.itheima.kotlin.game.core.Painter.INSTANCE.drawImage
 import com.github.hzqd.tank.war.enums.Direction
 import com.github.hzqd.tank.war.enums.Direction.Direction
 import com.github.hzqd.tank.war.util.Analyze.{calcBullet, checkDirect}
@@ -31,7 +32,7 @@ case class Enemy(a: Int, b: Int) extends Tank with AutoMovable with AutoShotable
             case Direction.LEFT => "img/enemy1L.gif"
             case Direction.RIGHT=> "img/enemy1R.gif"
         }
-        Painter.drawImage(imagePath, x, y)
+        drawImage(imagePath, x, y)
     }
 
     override def notifyCollision(direction: Direction, block: Blockable) {
@@ -80,7 +81,7 @@ case class Enemy(a: Int, b: Int) extends Tank with AutoMovable with AutoShotable
             return null
         }
         blood -= attackable.attackPower
-        Composer.play(HIT)
+        play(HIT)
         Array(Blast(x, y))
     }
 
